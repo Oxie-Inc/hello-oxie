@@ -2,6 +2,13 @@ name: Docker Image CI
 
 on:
   release:
+  workflow_call:
+    inputs:
+      tag:
+        default: $(date +%s)
+        required: true
+        description: Tag for image
+        type: string
 
 jobs:
   build:
@@ -9,4 +16,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag hello-oxie:$(date +%s)
+      run: docker build . --file Dockerfile --tag hello-oxie:$[[ inputs.tag ]]
