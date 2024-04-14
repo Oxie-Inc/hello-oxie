@@ -2,6 +2,12 @@ name: Docker Image CI
 
 on:
   release:
+    inputs:
+      tag:
+        default: $(date +%s)
+        required: true
+        description: Tag for image
+        type: string
   workflow_call:
     inputs:
       tag:
