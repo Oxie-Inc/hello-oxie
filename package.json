@@ -1,0 +1,28 @@
+{
+  "name": "hello-oxie",
+  "version": "1.0.0",
+  "description": "A simple Docker image to run to test the container, it print logs in stdout and stderr and to check container status.",
+  "main": "out/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "docker build -t hello-oxie .",
+    "run": "docker run hello-oxie",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [],
+  "author": "Pierre <Piarre> IDE",
+  "maintainers": [
+    {
+      "email": "contact@pierre-ide.fr",
+      "name": "Pierre <Piarre> IDE",
+      "url": "https://github.com/Piarre"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "pino": "^8.20.0",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
