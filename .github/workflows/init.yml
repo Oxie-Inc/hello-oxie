@@ -16,7 +16,7 @@ jobs:
     name: Init the workflow
     if: ${{ inputs.environment == '' }}
     uses: oxie-inc/scripts/.github/workflows/init.yml@main
-  deploy-website:
+  deploy-image:
     name: Deploy Image Package
     uses: ./.github/workflows/deploy-image.yml
     needs: init
