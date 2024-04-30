@@ -20,6 +20,11 @@ jobs:
           npm install
         env:
           CI: true
+      - name: Build docker image
+        run: |
+          npm run build
+        env:
+          CI: true
       - name: Publish to Github Packages Registry
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
