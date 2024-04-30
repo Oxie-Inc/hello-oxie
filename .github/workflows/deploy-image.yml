@@ -1,0 +1,38 @@
+name: Deploy Image
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [20.12.0]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: |
+          npm install
+        env:
+          CI: true
+      - name: Publish to Github Packages Registry
+        uses: elgohr/Publish-Docker-Github-Action@v4
+        with:
+          name: oxie-inc/hello-oxie/main
+          registry: docker.pkg.github.com
+          username: ${{ vars.USERNAME }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: Dockerfile
+          tags: latest
+      - name: Deploy package to server
+        env:
+          GITHUB_USERNAME: ${{ vars.USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker login docker.pkg.github.com -u $GITHUB_USERNAME -p $GITHUB_TOKEN
+          docker pull docker.pkg.github.com/oxie-inc/hello-oxie/main:latest
